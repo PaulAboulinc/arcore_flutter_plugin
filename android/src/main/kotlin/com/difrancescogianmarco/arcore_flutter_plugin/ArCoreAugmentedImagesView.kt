@@ -240,6 +240,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
                     return
                 } else {
                     val config = Config(session)
+                    config.planeFindingMode = Config.PlaneFindingMode.DISABLED
                     config.focusMode = Config.FocusMode.AUTO
                     config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
                     session.configure(config)
