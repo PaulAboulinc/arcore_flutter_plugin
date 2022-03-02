@@ -267,6 +267,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
         try {
             val session = arSceneView?.session ?: return
             val config = Config(session)
+            config.planeFindingMode = Config.PlaneFindingMode.DISABLED
             config.focusMode = Config.FocusMode.AUTO
             config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
             bytes?.let {
@@ -292,6 +293,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
         try {
             val session = arSceneView?.session ?: return
             val config = Config(session)
+            config.planeFindingMode = Config.PlaneFindingMode.DISABLED
             config.focusMode = Config.FocusMode.AUTO
             config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
             bytesMap?.let {
@@ -320,6 +322,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
                 if (augmentedImageDatabase?.getNumImages() == 0) {
                     throw Exception("Could not setup augmented image database")
                 }
+                config.planeFindingMode = Config.PlaneFindingMode.DISABLED
                 config.augmentedImageDatabase = augmentedImageDatabase
                 session.configure(config)
                 arSceneView?.setupSession(session)
@@ -334,6 +337,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
             val augmentedImageBitmap = loadAugmentedImageBitmap(bytes) ?: return false
             val augmentedImageDatabase = AugmentedImageDatabase(arSceneView?.session)
             augmentedImageDatabase.addImage("image_name", augmentedImageBitmap)
+            config.planeFindingMode = Config.PlaneFindingMode.DISABLED
             config.augmentedImageDatabase = augmentedImageDatabase
             return true
         } catch (ex:Exception) {
@@ -347,6 +351,7 @@ class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger:
         return try {
             val inputStream = ByteArrayInputStream(bytes)
             val augmentedImageDatabase = AugmentedImageDatabase.deserialize(arSceneView?.session, inputStream)
+            config.planeFindingMode = Config.PlaneFindingMode.DISABLED
             config.augmentedImageDatabase = augmentedImageDatabase
             true
         } catch (e: IOException) {
